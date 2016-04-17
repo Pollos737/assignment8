@@ -122,7 +122,7 @@ function simpleInsert($db, $table, $value1, $value2, $value3, $value4, $value5)
     $result = mysqli_query($db, $statement);
 
     if ($result) {
-        //it it returns value 1 we're all good!
+        //if it returns value 1 we're all good!
         return $value1;
     } else {
 
