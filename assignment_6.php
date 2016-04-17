@@ -12,16 +12,11 @@
     include "assignment_6_common_functions.php";
     
     $db = connectToServer();
-    $sqlstatement = simpleSelect('imgage_file','staff');
+    $sqlstatement = simpleSelect('image_file','staff');
     $results = mysqli_query($db, $sqlstatement);
 
     $output = '';
 
-    if (!$results) {
-        $output .= "<p style='color: red;'>MySQL No: " . mysqli_errno($db) . "<br>";
-        $output .= "MySQL Error: " . mysqli_error($db) . "<br>";
-        $output .= "<br>SQL: " . $sqlstatement . "<br>";
-    }
 ?>
 
     <div id="header">
@@ -39,15 +34,22 @@
         <h4 class="header_text">Our Staff</h4>
         <table>
             <tr>
-                <td>
-                    <img src="images/staff_lee.jpg ">
-                </td>
-                <td>
-                    <img src="images/staff_shirley.jpg ">
-                </td>
-                <td>
-                    <img src="images/staff_tom.jpg">
-                </td>
+                <?php
+                if (!$results) {
+                    $output .= "<p style='color: red;'>MySQL No: " . mysqli_errno($db) . "<br>";
+                    $output .= "MySQL Error: " . mysqli_error($db) . "<br>";
+                    $output .= "<br>SQL: " . $sqlstatement . "<br>";
+                    echo $output;
+                } else {
+                    $lines = mysqli_num_rows($results);
+                    for($i = 0; $i < $lines; $i++){
+                        $rows = mysqli_fetch_array($results);
+                        $staffPicture = $rows['image_file'];
+                        $output .=  "<td><img src='images/$staffPicture'></td>";
+                    }
+                    echo $output;
+                }
+                ?>
             </tr>
         </table>
     </div>
@@ -69,7 +71,6 @@
     </div>
     <div id = "server">
         <?php
-        
         getServer();
         ?>
     </div>
