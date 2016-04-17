@@ -21,11 +21,12 @@
             $db = connectToServer();
 
             $sqlstatement = simpleSelect('*', 'patron');
-            $sqlstatement .= $sqlstatement .= "ORDER BY last_name ";
+            $sqlstatement .=  "ORDER BY last_name ";
 
             $results = mysqli_query($db, $sqlstatement);
 
             $output = '';
+            $lines = 0;
 
             if (!$results) {
                 $output .= "<p style='color: red;'>MySQL No: ".mysqli_errno($db)."<br>";

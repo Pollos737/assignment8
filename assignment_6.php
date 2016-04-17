@@ -12,7 +12,7 @@
     include "assignment_6_common_functions.php";
     
     $db = connectToServer();
-    $sqlstatement = simpleSelect('')
+    $sqlstatement = simpleSelect('imgage_file','staff');
     $results = mysqli_query($db, $sqlstatement);
 
     $output = '';

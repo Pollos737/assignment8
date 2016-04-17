@@ -99,42 +99,40 @@ function connectToServer()
             print "<h1>Unable to Connect to MySQL</h1>";
         }
     }
-    
+
     return $db;
 }
 
-function simpleSelect($field, $table, $order)
+function simpleSelect($field, $table)
 {
     $sqlstatement = "SELECT ".$field." ";
     $sqlstatement .= "FROM ".$table." ";
-    $sqlstatement .= "ORDER BY ".$order." ";
-    
+
     return $sqlstatement;
 }
 
 function simpleInsert($db, $table, $value1, $value2, $value3, $value4, $value5)
 {
 
-    $statement 	= "INSERT INTO $table (`patron_id`, `last_name`, `first_name`, `city_name`, `email`, `birth_year`) ";
+    $statement = "INSERT INTO $table (`patron_id`, `last_name`, `first_name`, `city_name`, `email`, `birth_year`) ";
     $statement .= "values (NULL, ";
-    $statement .= "'".$value1."', '".$value2."', '".$value3."','".$value4."','".$value5."' ";
+    $statement .= "'" . $value1 . "', '" . $value2 . "', '" . $value3 . "','" . $value4 . "','" . $value5 . "' ";
     $statement .= ") ";
-
+    $output = '';
     $result = mysqli_query($db, $statement);
 
-    if ($result)
-    {
+    if ($result) {
+        //it it returns value 1 we're all good!
         return $value1;
     } else {
 
-        if (!$results) {
-            $output .= "<p style='color: red;'>MySQL No: ".mysqli_errno($db)."<br>";
-            $output .= "MySQL Error: ".mysqli_error($db)."<br>";
-            $output .= "<br>SQL: ".$sqlstatement."<br>";
+        if (!$result) {
+            $output .= "<p style='color: red;'>MySQL No: " . mysqli_errno($db) . "<br>";
+            $output .= "MySQL Error: " . mysqli_error($db) . "<br>";
+            $output .= "<br>SQL: " . $statement . "<br>";
         }
 
         return $output;
     }
 
-
-}
+}     
